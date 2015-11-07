@@ -3,9 +3,3 @@ extend ../layouts/layout
 block content
   p hello pages home
   #info info-show
-
-  script.
-    var socket = io.connect();
-    socket.on("say", function(data){
-    });
-    socket.emit('get_info', { msg: "hello get info from server "} );
