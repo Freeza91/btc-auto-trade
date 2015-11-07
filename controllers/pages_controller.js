@@ -10,15 +10,24 @@ exports.home = function (req, res, next) {
 }
 
 exports.ltc = function(req, res, next){
-  // redis.store('ltc', { trade_type: 'sell_market', price: 24, amount: 0.2090, coin_type: 'ltc' });
-  // redis.store('ltc', { trade_type: 'buy_market', price: 23, amount: 5, coin_type: 'ltc' });
   res.render('pages/ltc');
 }
 
 exports.btc = function(req, res, next){
-  // redis.store('btc', { trade_type: 'sell_market', price: 24, amount: 0.2090, coin_type: 'btc' });
-  // redis.store('btc', { trade_type: 'buy_market', price: 23, amount: 5, coin_type: 'btc' });
   res.render('pages/btc');
+}
+
+exports.settings = function(req, res, next){
+  var body = req.body;
+  value = {
+    trade_type: body.trade_type,
+    price: body.price,
+    amount: body.amount,
+    coin_type: body.coin_type
+  }
+  // redis.store(body.coin_type, value);
+  req.flash('value', JSON.stringify(value));
+  res.redirect('/' + body.coin_type);
 }
 
 exports.delete_key = function(req, res, next){

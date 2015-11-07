@@ -54,8 +54,8 @@ module.exports = function(io){
       })
   }
 
-  setInterval(getBtc, 2000);
-  setInterval(getLtc, 2000);
+  setInterval(getBtc, 1000);
+  setInterval(getLtc, 1000);
   setInterval(getAccountInfo, 1000);
 
   io.sockets.on('connect', function (socket){

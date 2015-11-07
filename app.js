@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -17,6 +18,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: settings.secret,
+  resave: true,
+  saveUninitialized: false,
+  unset: 'destroy'
+})); // session middleware
+app.use(require('flash')());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // router

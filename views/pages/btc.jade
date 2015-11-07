@@ -4,3 +4,30 @@ block content
   script(src='/javascripts/btc_socket.js')
 
   #info will-show-btc
+  form(action='/settings' method='post')
+    input(name="coin_type" value='btc' type='hidden')
+    div
+      input(type='text' name='price' placeholder='触发价格')
+    div
+      input(type='text' name='amount' placeholder='数量或者价格')
+    div
+      input(type='radio' name='trade_type' value='sell_market')
+      span
+        | 卖出
+      span
+        | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      input(type='radio' name='trade_type' value='buy_market')
+      span
+        | 买入
+    div
+      input(type='submit' value='提交' class='submit')
+
+
+  #show-settings
+    for message in flash
+      div #{message.message}
+      div 触发价格： #{value.price}
+      if value.trade_type == 'sell_market'
+        div 数量：#{value.amonut}
+      else
+        div 价格：#{value.amonut}
