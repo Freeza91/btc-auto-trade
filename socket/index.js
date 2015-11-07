@@ -4,6 +4,7 @@ module.exports = function(io){
 
   var ltc = '';
   var btc = '';
+  var account = {}
 
   function getBtc(){
     http.btc()
@@ -29,8 +30,19 @@ module.exports = function(io){
       });
   }
 
+  function getAccountInfo(){
+    http.get_account_info()
+      .then(function(data){
+        account = data;
+      })
+      .catch(function(error){
+        console.log(error.message);
+      })
+  }
+
   setInterval(getBtc, 1000);
   setInterval(getLtc, 1000);
+  setInterval(getAccountInfo, 1000);
 
   io.sockets.on('connect', function (socket){
 
@@ -42,8 +54,13 @@ module.exports = function(io){
       socket.emit('btc', { code: 1, btc: btc });
     }
 
+    var show_account_info = function(){
+      socket.emit('account', { code: 1, account: account });
+    }
+
     setInterval(show_btc, 1000);
     setInterval(show_ltc, 1000);
+    setInterval(show_account_info, 1000);
 
   });
 
