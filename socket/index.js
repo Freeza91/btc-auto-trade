@@ -1,4 +1,6 @@
-var http = require('../lib/get_info');
+var http = require('../lib/get_info')
+    redis = require('../lib/redis'),
+    trade = require('../lib/trade');
 
 module.exports = function(io){
 
@@ -11,6 +13,12 @@ module.exports = function(io){
       .then(function(data){
         if(data){
           btc = data.ticker.last;
+          redis.get_value('btc')
+            .then(function(data){
+              if(data){
+                trade.makeTrade(data, btc, 'btc');
+              }
+            });
         }
       })
       .catch(function(error){
@@ -23,6 +31,12 @@ module.exports = function(io){
       .then(function(data){
         if(data){
           ltc = data.ticker.last;
+          redis.get_value('ltc')
+            .then(function(data){
+              if(data){
+                trade.makeTrade(data, ltc, 'ltc');
+              }
+            });
         }
       })
       .catch(function(error){
@@ -40,8 +54,8 @@ module.exports = function(io){
       })
   }
 
-  setInterval(getBtc, 1000);
-  setInterval(getLtc, 1000);
+  setInterval(getBtc, 2000);
+  setInterval(getLtc, 2000);
   setInterval(getAccountInfo, 1000);
 
   io.sockets.on('connect', function (socket){
