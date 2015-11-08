@@ -10,11 +10,21 @@ exports.home = function (req, res, next) {
 }
 
 exports.ltc = function(req, res, next){
-  res.render('pages/ltc');
+  redis.get_value('ltc')
+    .then(function(data){
+      res.render('pages/ltc', {
+        value: data
+      });
+    })
 }
 
 exports.btc = function(req, res, next){
-  res.render('pages/btc');
+  redis.get_value('btc')
+    .then(function(data){
+      res.render('pages/btc', {
+        value: data
+      });
+    })
 }
 
 exports.settings = function(req, res, next){
@@ -25,8 +35,8 @@ exports.settings = function(req, res, next){
     amount: body.amount,
     coin_type: body.coin_type
   }
-  // redis.store(body.coin_type, value);
-  req.flash('value', JSON.stringify(value));
+  redis.store(body.coin_type, value);
+  req.flash('info', '注册成功！');
   res.redirect('/' + body.coin_type);
 }
 
