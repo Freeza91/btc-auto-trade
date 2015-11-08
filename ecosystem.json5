@@ -12,11 +12,25 @@
       }
     },
   ],
+
+  /*
+  *
+  * deploy setup
+  * pm2 deploy ecosystem.json5 production setup
+  *
+  * 必须是绝对路径
+  * ln -nfs ~/huobi-trade/shared/config/application.js ~/huobi-trade/current/config/application.js
+  *
+  * deploy
+  * pm2 deploy ecosystem.json5 production
+  *
+  */
+
   deploy : {
     production : {
       user : "deploy",
       host : "test.geeklab.cc",
-      port : 9527,
+      port : "9527",
       ref  : "origin/master",
       repo : "git@github.com:Freeza91/btc-auto-trade.git",
       path : "~/huobi-trade",
