@@ -1,0 +1,26 @@
+{
+  apps : [
+
+    {
+      name      : "huobi-trade",
+      script    : "app.js",
+      env: {
+        COMMON_VARIABLE: "true"
+      },
+      env_production : {
+        NODE_ENV: "production"
+      }
+    },
+  ],
+  deploy : {
+    production : {
+      user : "deploy",
+      host : "test.geeklab.cc",
+      port : 9527,
+      ref  : "origin/master",
+      repo : "git@github.com:Freeza91/btc-auto-trade.git",
+      path : "~/huobi-trade",
+      "post-deploy" : "pm2 startOrRestart ecosystem.json5 --env production"
+    }
+  }
+}
