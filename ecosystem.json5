@@ -34,7 +34,7 @@
       ref  : "origin/master",
       repo : "git@github.com:Freeza91/btc-auto-trade.git",
       path : "~/huobi-trade",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json5 --env production"
+      "post-deploy" : "npm install && gulp && pm2 startOrRestart ecosystem.json5 --env production"
     }
   }
 }
