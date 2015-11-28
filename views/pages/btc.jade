@@ -26,12 +26,17 @@ block content
     div
       input(type='submit' value='提交' class='submit')
 
+
+
   #show-settings
     if value
       div 触发价格： #{value.price}
       if value.trade_type == 'sell_market'
-        div 行为： 卖出
+        div 行为： 卖出<此处是卖出的BTC数量>
         div 数量：#{value.amount}
       else
-        div 行为： 买入
+        div 行为： 买入<此处是买入BTC数量的价格总额(amount * price)>
         div 价格：#{value.amount}
+      div
+        a(href='/delete?key=btc')
+          | 删除委托

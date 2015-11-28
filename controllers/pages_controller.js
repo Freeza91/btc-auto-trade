@@ -41,6 +41,11 @@ exports.settings = function(req, res, next){
 }
 
 exports.delete_key = function(req, res, next){
-  var key = req.params.key
-  redis.delete_key(key);
+  var key = req.query.key;
+  var ans = redis.delete_key(key);
+
+  req.flash('info', '删除成功或者不存在!')
+
+  res.redirect('/' + key);
+
 }
